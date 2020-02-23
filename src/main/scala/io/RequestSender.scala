@@ -8,14 +8,14 @@ import io.RequestSender._
  * Class to send a request
  * @param conf Conf values
  */
-class RequestSender(conf: PocketConf) {
+class RequestSender(conf: PocketConf) extends Requester[Seq[String], IOResponse] {
 
   /**
    * Function for sending a GET request
    * @param queries Any additional query params to send with the request
    * @return The response from the request
    */
-  def get(queries: Seq[String]): Identity[Response[Either[String, String]]] = {
+  def get(queries: Seq[String]): IOResponse = {
 
     val request = basicRequest.get(
       uri"${queries.foldLeft(buildBaseURI(conf, getRequestType))(_ + _)}"

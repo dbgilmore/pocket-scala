@@ -11,7 +11,7 @@ import transform.map.{DetailTypeQueryStringMapper, TagQueryStringMapper}
  * Class for reading articles from Pocket
  * @param requestSender To send the request to Pocket
  */
-class Reader(requestSender: RequestSender) {
+class Reader(requestSender: Requester[Seq[String], IOResponse]) {
 
   /**
    * Function to read articles from Pocket

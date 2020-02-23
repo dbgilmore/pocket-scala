@@ -9,7 +9,7 @@ object PocketConfParser {
 
   /**
    * Function for parsing the conf file
-   * * @param confLocation Location of the conf file
+   * @param confLocation Location of the conf file
    * @return The parsed conf
    */
   def parse(confLocation: String): PocketConf = {
