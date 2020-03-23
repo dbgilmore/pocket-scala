@@ -18,8 +18,9 @@ object PocketConfParser {
     val consumerKey = config.getString("pocket.client.consumerKey")
     val accessToken = config.getString("pocket.user.accessToken")
     val baseURI = config.getString("pocket.baseURI")
+    val wordsPerMinute = config.getInt("pocket.user.wordsPerMinute")
 
-    PocketConf(consumerKey, accessToken, baseURI)
+    PocketConf(consumerKey, accessToken, baseURI, wordsPerMinute)
   }
 }
 
@@ -32,5 +33,6 @@ object PocketConfParser {
 case class PocketConf(
                        consumerKey: String,
                        accessToken: String,
-                       baseURI: String
+                       baseURI: String,
+                       wordsPerMinute: Int
                      )

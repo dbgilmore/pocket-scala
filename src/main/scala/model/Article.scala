@@ -11,6 +11,7 @@ package model
  * @param resolved_title - The title that Pocket found for the item when it was parsed
  * @param status - 0, 1, 2 - 1 if the item is archived - 2 if the item should be deleted
  * @param word_count - How many words are in the article
+ * @param has_video Does the article have a video?
  * @param tags - A JSON object of the user tags associated with the item
  */
 case class Article(
@@ -22,5 +23,6 @@ case class Article(
                     resolved_title: String,
                     status: String,
                     word_count: String,
+                    has_video: String,
                     tags: Option[Map[String, Tag]]
                   )

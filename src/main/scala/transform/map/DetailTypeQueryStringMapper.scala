@@ -11,14 +11,9 @@ object DetailTypeQueryStringMapper {
   val detailTypeQueryString: String = "&detailType="
 
   /**
-   * simple string
+   * Detail types that are allowed
    */
-  val simple: String = "simple"
-
-  /**
-   * complete string
-   */
-  val complete: String = "complete"
+  val allowedDetailTypes: Seq[String] = Seq("simple", "complete")
 
 
   /**
@@ -28,8 +23,7 @@ object DetailTypeQueryStringMapper {
    */
   def map(detailType: Option[String]): String = {
     detailType match {
-      case Some("simple") => s"$detailTypeQueryString$simple"
-      case Some("complete") => s"$detailTypeQueryString$complete"
+      case Some(detailTypeString) if allowedDetailTypes.contains(detailTypeString) => s"$detailTypeQueryString$detailTypeString"
       case _ => ""
     }
   }

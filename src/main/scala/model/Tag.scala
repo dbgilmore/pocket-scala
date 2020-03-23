@@ -6,6 +6,6 @@ package model
  * @param tag The tag value
  */
 case class Tag(
-              item_id: String,
-              tag: String
+                item_id: String,
+                tag: String
               )

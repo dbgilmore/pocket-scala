@@ -5,7 +5,7 @@ import io.circe.Decoder
 import io.circe.parser._
 import model.PocketResponse
 import io.circe.generic.auto._
-import transform.map.{DetailTypeQueryStringMapper, TagQueryStringMapper}
+import transform.map.{DetailTypeQueryStringMapper, StateQueryStringMapper, TagQueryStringMapper}
 
 /**
  * Class for reading articles from Pocket
@@ -21,11 +21,16 @@ class Reader(requestSender: Requester[Seq[String], IOResponse]) {
    */
   def read(
             tag: Option[String] = None,
-            detailType: Option[String] = None
+            detailType: Option[String] = None,
+            state: Option[String] = None
           ): PocketResponse = {
 
     val response = requestSender.get(
-      Seq(DetailTypeQueryStringMapper.map(detailType), TagQueryStringMapper.map(tag))
+      Seq(
+        DetailTypeQueryStringMapper.map(detailType),
+        TagQueryStringMapper.map(tag),
+        StateQueryStringMapper.map(state)
+      )
     )
 
     val parsedResponse = for {
@@ -37,8 +42,11 @@ class Reader(requestSender: Requester[Seq[String], IOResponse]) {
       case Left(sadError) =>
         println(sadError)
         throw new RuntimeException()
-      case Right(happyResponse) => happyResponse
+      case Right(happyResponse) =>
+        println(s"Retrieved ${happyResponse.list.getOrElse(Map()).size} articles from Pocket")
+        happyResponse
     }
+
   }
 
   /**

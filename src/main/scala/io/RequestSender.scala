@@ -3,6 +3,7 @@ package io
 import conf.PocketConf
 import sttp.client._
 import io.RequestSender._
+import io.circe.Json
 
 /**
  * Class to send a request
@@ -27,6 +28,17 @@ class RequestSender(conf: PocketConf) extends Requester[Seq[String], IOResponse]
     request.send()
   }
 
+  def modify(json: Json): IOResponse = {
+    val request = basicRequest.post(
+      uri"${buildBaseURI(conf, modifyRequestType)}&actions=$json"
+    )
+
+    request.header("Content-Type", "application/json")
+
+    implicit val backend: SttpBackend[Identity, Nothing, NothingT] = HttpURLConnectionBackend()
+    request.send()
+  }
+
 }
 
 /**
@@ -38,6 +50,8 @@ object RequestSender {
    * get string
    */
   val getRequestType: String = "get"
+
+  val modifyRequestType: String = "send"
 
   /**
    * Function to build URI

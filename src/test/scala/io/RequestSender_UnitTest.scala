@@ -8,7 +8,7 @@ import sttp.model.StatusCode
 class RequestSender_UnitTest extends AnyFunSuite with Matchers {
 
   test("Program flow should execute as expected") {
-    val conf = PocketConf("token", "key", "https://getpocket.com/v3/")
+    val conf = PocketConf("token", "key", "https://getpocket.com/v3/", 260)
     val requestSender = new RequestSender(conf)
 
     val response = requestSender.get(Nil)
